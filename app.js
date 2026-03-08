@@ -45,3 +45,4 @@ function selectWord(button, word) {
 function closePanel() {
   document.getElementById("panel").style.display = "none";
 }
+window.onload = loadPuzzle;
