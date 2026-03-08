@@ -37,7 +37,53 @@ function buildGrid(words) {
     grid.appendChild(button);
   });
 }
+async function lookupWord(word) {
 
+  const panel = document.getElementById("panel");
+  const title = document.getElementById("wordTitle");
+  const definition = document.getElementById("definition");
+  const synonyms = document.getElementById("synonyms");
+
+  panel.style.display = "block";
+  title.textContent = word;
+
+  definition.textContent = "Loading definition...";
+  synonyms.textContent = "";
+
+  try {
+
+    const res = await fetch(
+      "https://api.dictionaryapi.dev/api/v2/entries/en/" + word.toLowerCase()
+    );
+
+    const data = await res.json();
+
+    definition.textContent =
+      data[0].meanings[0].definitions[0].definition;
+
+  } catch (err) {
+
+    definition.textContent = "Definition not found.";
+
+  }
+
+  try {
+
+    const synRes = await fetch(
+      "https://api.datamuse.com/words?rel_syn=" + word + "&max=5"
+    );
+
+    const synData = await synRes.json();
+
+    const synList = synData.map(s => s.word).join(", ");
+
+    if (synList) {
+      synonyms.textContent = "Synonyms: " + synList;
+    }
+
+  } catch {}
+
+}
 function selectWord(button, word) {
   button.classList.toggle("selected");
 }
@@ -46,6 +92,7 @@ function closePanel() {
   document.getElementById("panel").style.display = "none";
 }
 window.onload = loadPuzzle;
+
 
 
 
