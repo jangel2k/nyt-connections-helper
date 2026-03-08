@@ -27,7 +27,7 @@ async function loadPuzzle() {
 
 function buildGrid(words) {
   const grid = document.getElementById("grid");
-  grid.innerHTML = ""; // Clear previous grid
+  grid.innerHTML = "";
 
   words.forEach(word => {
     const button = document.createElement("button");
@@ -45,4 +45,3 @@ function selectWord(button, word) {
 function closePanel() {
   document.getElementById("panel").style.display = "none";
 }
-
