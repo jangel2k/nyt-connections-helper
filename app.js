@@ -13,8 +13,8 @@ async function loadPuzzle() {
 
     let words = [];
 
-    data.categories.forEach(cat => {
-      cat.cards.forEach(word => words.push(word));
+   data.categories.forEach(cat => {
+   cat.cards.forEach(card => words.push(card.content));
     });
 
     shuffle(words);
@@ -46,3 +46,4 @@ function closePanel() {
   document.getElementById("panel").style.display = "none";
 }
 window.onload = loadPuzzle;
+
