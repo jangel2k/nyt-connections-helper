@@ -10,6 +10,7 @@ async function loadPuzzle() {
   try {
     const res = await fetch("puzzle.json");
     const data = await res.json();
+    console.log(data);
 
     let words = [];
 
@@ -46,4 +47,5 @@ function closePanel() {
   document.getElementById("panel").style.display = "none";
 }
 window.onload = loadPuzzle;
+
 
