@@ -33,7 +33,9 @@ function buildGrid(words) {
     const button = document.createElement("button");
     button.textContent = word;
     button.className = "word-button";
-    button.onclick = () => selectWord(button, word);
+
+    button.addEventListener("click", () => lookupWord(word));
+
     grid.appendChild(button);
   });
 }
@@ -47,41 +49,25 @@ async function lookupWord(word) {
   panel.style.display = "block";
   title.textContent = word;
 
-  definition.textContent = "Loading definition...";
+  definition.textContent = "Loading...";
   synonyms.textContent = "";
 
   try {
-
     const res = await fetch(
       "https://api.dictionaryapi.dev/api/v2/entries/en/" + word.toLowerCase()
     );
 
     const data = await res.json();
 
-    definition.textContent =
-      data[0].meanings[0].definitions[0].definition;
-
-  } catch (err) {
-
-    definition.textContent = "Definition not found.";
-
-  }
-
-  try {
-
-    const synRes = await fetch(
-      "https://api.datamuse.com/words?rel_syn=" + word + "&max=5"
-    );
-
-    const synData = await synRes.json();
-
-    const synList = synData.map(s => s.word).join(", ");
-
-    if (synList) {
-      synonyms.textContent = "Synonyms: " + synList;
+    if (data[0]?.meanings?.[0]?.definitions?.[0]?.definition) {
+      definition.textContent = data[0].meanings[0].definitions[0].definition;
+    } else {
+      definition.textContent = "Definition not found.";
     }
 
-  } catch {}
+  } catch (err) {
+    definition.textContent = "Definition not available.";
+  }
 
 }
 function selectWord(button, word) {
@@ -92,6 +78,7 @@ function closePanel() {
   document.getElementById("panel").style.display = "none";
 }
 window.onload = loadPuzzle;
+
 
 
 
