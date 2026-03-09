@@ -139,7 +139,7 @@ async function lookupWord(word) {
 
   } catch (error) {
     console.error("Lookup error:", error);
-    definition.textContent = "Definition not available.";
+    definition.innerHTML = "Definition not found.<br><em>Hint: This may be a proper name (person or place).</em>";
   }
 }
 
@@ -155,6 +155,7 @@ function closePanel() {
    LOAD GRID ON PAGE LOAD
 ------------------------------ */
 window.onload = loadPuzzle;
+
 
 
 
