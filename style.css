@@ -55,6 +55,7 @@ h3 {
    TILE STYLING (NYT-LIKE)
 ------------------------------ */
 .word {
+  height:60px;
   background: #EEEDE3;
   border-radius: 8px;
   padding: 14px 8px;
@@ -187,6 +188,7 @@ h3 {
 .syn-block strong {
   font-weight: 600;
 }
+
 
 
 
