@@ -33,3 +33,25 @@ background:#ddd;
   padding:20px;
   border-top:2px solid #ccc;
 }
+
+.meaning-block {
+  margin-bottom: 12px;
+}
+
+.part-of-speech {
+  font-weight: bold;
+  margin-left: 10px;
+  margin-bottom: 4px;
+  text-transform: capitalize;
+}
+
+.definition-list {
+  margin-left: 25px;
+  padding-left: 15px;
+}
+
+.definition-list li {
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
