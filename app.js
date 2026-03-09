@@ -46,6 +46,7 @@ async function lookupWord(word) {
 
   // Show panel and reset content
   panel.style.display = "block";
+  definition.scrollTop = 0;   // <<< THIS ensures scrolling starts at top
   title.textContent = word;
   definition.textContent = "Loading...";
 
@@ -93,6 +94,7 @@ function closePanel() {
   document.getElementById("panel").style.display = "none";
 }
 window.onload = loadPuzzle;
+
 
 
 
