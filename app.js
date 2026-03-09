@@ -40,48 +40,40 @@ function buildGrid(words) {
   });
 }
 async function lookupWord(word) {
-
   const panel = document.getElementById("panel");
   const title = document.getElementById("wordTitle");
   const definition = document.getElementById("definition");
-  const synonyms = document.getElementById("synonyms");
 
   panel.style.display = "block";
   title.textContent = word;
-
   definition.textContent = "Loading...";
-  synonyms.textContent = "";
 
   try {
     const res = await fetch(
-      "https://api.dictionaryapi.dev/api/v2/entries/en/" + word.toLowerCase()
+      `https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`
     );
+
+    if (!res.ok) throw new Error("Not found");
 
     const data = await res.json();
 
- <!--   if (data[0]?.meanings?.[0]?.definitions?.[0]?.definition) {
-      definition.textContent = data[0].meanings[0].definitions[0].definition;
-    } else {
+    if (!data[0]?.meanings) {
       definition.textContent = "Definition not found.";
-    } -->
+      return;
+    }
 
-    if (data[0]?.meanings) {
-  const allDefs = data[0].meanings
-    .flatMap(meaning =>
-      meaning.definitions.map(def => `• ${def.definition}`)
-    )
-    .join("\n");
-
-  definition.textContent = allDefs;
-} else {
-  definition.textContent = "Definition not found.";
-}
+    definition.innerHTML = data[0].meanings
+      .flatMap(meaning =>
+        meaning.definitions.map(def => `<div>• ${def.definition}</div>`)
+      )
+      .join("");
 
   } catch (err) {
     definition.textContent = "Definition not available.";
   }
-
 }
+
+
 function selectWord(button, word) {
   button.classList.toggle("selected");
 }
@@ -90,6 +82,7 @@ function closePanel() {
   document.getElementById("panel").style.display = "none";
 }
 window.onload = loadPuzzle;
+
 
 
 
