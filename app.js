@@ -9,21 +9,14 @@ function shuffle(array) {
   return array;
 }
 
-function fitTextToBox(el) {
-  const maxFont = 14;
-  const minFont = 10;
+function shrinkToFit(el) {
+  let size = 16;        // starting font size
+  const min = 10;       // smallest allowed
+  el.style.fontSize = size + "px";
 
-  let fontSize = maxFont;
-  el.style.fontSize = fontSize + "px";
-
-  // Reduce font size until text fits
-  while (
-    (el.scrollHeight > el.clientHeight ||
-     el.scrollWidth > el.clientWidth) &&
-    fontSize > minFont
-  ) {
-    fontSize -= 0.5;
-    el.style.fontSize = fontSize + "px";
+  while (size > min && el.scrollWidth > el.clientWidth) {
+    size -= 1;
+    el.style.fontSize = size + "px";
   }
 }
 
@@ -63,13 +56,14 @@ function buildGrid(words) {
     tile.className = "word";
     tile.textContent = word;
 
-    // 👇 MUST be called AFTER text is set
-    fitTextToBox(tile);
+    // ⭐ SHRINK TO FIT
+    shrinkToFit(tile);
 
     tile.addEventListener("click", () => lookupWord(word));
     grid.appendChild(tile);
   });
 }
+
 
 
 /* ------------------------------
@@ -158,6 +152,7 @@ function closePanel() {
    LOAD GRID ON PAGE LOAD
 ------------------------------ */
 window.onload = loadPuzzle;
+
 
 
 
