@@ -64,9 +64,9 @@ h3 {
 
   text-align: center;
   font-weight: 700;
-  font-size: 14px;       /* starting size */
+  font-size: 16px;   /* start larger so there’s room to shrink */
   line-height: 1.1;
-  letter-spacing: 0.3px;
+  letter-spacing: 0.4px;
   text-transform: uppercase;
 
   cursor: pointer;
@@ -75,8 +75,12 @@ h3 {
   border: 1px solid #E1E0D6;
   box-shadow: 0 1px 2px rgba(0,0,0,0.06);
 
-  overflow: hidden;     /* REQUIRED */
+  overflow: hidden;
+
+  white-space: nowrap;          /* ⭐ NO WRAPPING */
+  text-overflow: ellipsis;      /* failsafe — should never be needed */
 }
+
 
 
 /* Hover */
@@ -183,6 +187,7 @@ h3 {
 .syn-block strong {
   font-weight: 600;
 }
+
 
 
 
