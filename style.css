@@ -34,10 +34,9 @@ h3 {
 .grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
-
   width: 100%;
-  max-width: 360px;   /* NYT mobile width */
+  max-width: 360px;
+  gap: 8px;
   margin: 0 auto;
 }
 
@@ -187,6 +186,7 @@ h3 {
 .syn-block strong {
   font-weight: 600;
 }
+
 
 
 
