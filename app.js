@@ -65,40 +65,38 @@ async function lookupWord(word) {
       return;
     }
 
-    // Build meanings + definitions + synonyms
-    const html = entry.meanings
-      .map(meaning => {
-        const part = meaning.partOfSpeech || "";
+    let html = "";
 
-        const defs = meaning.definitions
-          .map(def => {
-            const defText = `<li>${def.definition}</li>`;
+    entry.meanings.forEach(meaning => {
+      html += `
+        <div class="meaning-block">
+          <div class="part-of-speech">${meaning.partOfSpeech || ""}</div>
+          <ul class="definition-list">
+      `;
 
-            const syns = def.synonyms && def.synonyms.length
-              ? `<div class="syn-block"><strong>Synonyms:</strong> ${def.synonyms.slice(0,8).join(", ")}</div>`
-              : "";
+      meaning.definitions.forEach(def => {
+        html += `<li>${def.definition}</li>`;
 
-            return defText + syns;
-          })
-          .join("");
+        if (Array.isArray(def.synonyms) && def.synonyms.length > 0) {
+          html += `
+            <div class="syn-block">
+              <strong>Synonyms:</strong> ${def.synonyms.slice(0, 8).join(", ")}
+            </div>
+          `;
+        }
+      });
 
-        return `
-          <div class="meaning-block">
-            <div class="part-of-speech">${part}</div>
-            <ul class="definition-list">
-              ${defs}
-            </ul>
-          </div>
-        `;
-      })
-      .join("");
+      html += `</ul></div>`;
+    });
 
     definition.innerHTML = html;
 
   } catch (err) {
+    console.error(err);
     definition.textContent = "Definition not available.";
   }
 }
+
 
 
     // Build clean HTML with proper indentation
@@ -129,6 +127,7 @@ function closePanel() {
   document.getElementById("panel").style.display = "none";
 }
 window.onload = loadPuzzle;
+
 
 
 
