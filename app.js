@@ -94,7 +94,7 @@ async function lookupWord(word) {
     const entry = data[0];
 
     if (!entry?.meanings?.length) {
-      definition.textContent = "Definition not found.";
+      definition.innerHTML = "Definition not found.<br><em>Hint: This may be a proper name (person or place).</em>";
       return;
     }
 
@@ -155,6 +155,7 @@ function closePanel() {
    LOAD GRID ON PAGE LOAD
 ------------------------------ */
 window.onload = loadPuzzle;
+
 
 
 
