@@ -59,15 +59,15 @@ function buildGrid(words) {
   grid.innerHTML = "";
 
   words.forEach(word => {
-    const btn = document.createElement("div");
-    btn.className = "word";
-    btn.textContent = word;
+    const tile = document.createElement("div");
+    tile.className = "word";
+    tile.textContent = word;
 
-    adjustFontSize(btn);   // ✅ NEW
+    // 👇 MUST be called AFTER text is set
+    fitTextToBox(tile);
 
-    btn.addEventListener("click", () => lookupWord(word));
-
-    grid.appendChild(btn);
+    tile.addEventListener("click", () => lookupWord(word));
+    grid.appendChild(tile);
   });
 }
 
@@ -158,6 +158,7 @@ function closePanel() {
    LOAD GRID ON PAGE LOAD
 ------------------------------ */
 window.onload = loadPuzzle;
+
 
 
 
