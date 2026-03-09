@@ -59,11 +59,23 @@ async function lookupWord(word) {
 
     const data = await res.json();
 
-    if (data[0]?.meanings?.[0]?.definitions?.[0]?.definition) {
+ <!--   if (data[0]?.meanings?.[0]?.definitions?.[0]?.definition) {
       definition.textContent = data[0].meanings[0].definitions[0].definition;
     } else {
       definition.textContent = "Definition not found.";
-    }
+    } -->
+
+    if (data[0]?.meanings) {
+  const allDefs = data[0].meanings
+    .flatMap(meaning =>
+      meaning.definitions.map(def => `• ${def.definition}`)
+    )
+    .join("\n");
+
+  definition.textContent = allDefs;
+} else {
+  definition.textContent = "Definition not found.";
+}
 
   } catch (err) {
     definition.textContent = "Definition not available.";
@@ -78,6 +90,7 @@ function closePanel() {
   document.getElementById("panel").style.display = "none";
 }
 window.onload = loadPuzzle;
+
 
 
 
