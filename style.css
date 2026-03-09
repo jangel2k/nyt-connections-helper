@@ -156,6 +156,16 @@ h3 {
   line-height: 1.45;
 }
 
+.syn-block {
+  margin: 4px 0 10px 4px;
+  font-size: 13px;
+  color: #333;
+}
+
+.syn-block strong {
+  font-weight: 600;
+}
+
 
 
 
