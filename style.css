@@ -31,12 +31,14 @@ h3 {
 /* ------------------------------
    NYT CONNECTIONS GRID
 ------------------------------ */
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+
   width: 100%;
   max-width: 360px;
-  gap: 8px;
   margin: 0 auto;
 }
 
@@ -186,6 +188,7 @@ h3 {
 .syn-block strong {
   font-weight: 600;
 }
+
 
 
 
