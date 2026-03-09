@@ -91,16 +91,24 @@ async function lookupWord(word) {
       meaning.definitions.forEach(def => {
         html += `<li>${def.definition}</li>`;
 
-        // 🔥 Add synonyms only when they exist
+        // 1. Synonyms inside definition
         if (Array.isArray(def.synonyms) && def.synonyms.length > 0) {
           html += `
             <div class="syn-block">
-              <strong>Synonyms:</strong> 
-              ${def.synonyms.slice(0, 8).join(", ")}
+              <strong>Synonyms:</strong> ${def.synonyms.slice(0, 8).join(", ")}
             </div>
           `;
         }
       });
+
+      // 2. Synonyms at meaning level
+      if (Array.isArray(meaning.synonyms) && meaning.synonyms.length > 0) {
+        html += `
+          <div class="syn-block">
+            <strong>Synonyms:</strong> ${meaning.synonyms.slice(0, 8).join(", ")}
+          </div>
+        `;
+      }
 
       html += `
           </ul>
@@ -116,6 +124,7 @@ async function lookupWord(word) {
   }
 }
 
+
 /* ------------------------------
    CLOSE PANEL
 ------------------------------ */
@@ -127,6 +136,7 @@ function closePanel() {
    LOAD GRID ON PAGE LOAD
 ------------------------------ */
 window.onload = loadPuzzle;
+
 
 
 
