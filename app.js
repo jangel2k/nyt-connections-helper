@@ -44,6 +44,7 @@ async function lookupWord(word) {
   const title = document.getElementById("wordTitle");
   const definition = document.getElementById("definition");
 
+  // Show panel and reset content
   panel.style.display = "block";
   title.textContent = word;
   definition.textContent = "Loading...";
@@ -53,26 +54,36 @@ async function lookupWord(word) {
       `https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`
     );
 
-    if (!res.ok) throw new Error("Not found");
+    if (!res.ok) {
+      throw new Error("Word not found");
+    }
 
     const data = await res.json();
 
-    if (!data[0]?.meanings) {
+    if (!data[0]?.meanings?.length) {
       definition.textContent = "Definition not found.";
       return;
     }
 
+    // Build clean HTML with proper indentation
     definition.innerHTML = data[0].meanings
-      .flatMap(meaning =>
-        meaning.definitions.map(def => `<div>• ${def.definition}</div>`)
-      )
+      .map(meaning => `
+        <div class="meaning-block">
+          <div class="part-of-speech">${meaning.partOfSpeech}</div>
+          <ul class="definition-list">
+            ${meaning.definitions
+              .map(def => `<li>${def.definition}</li>`)
+              .join("")}
+          </ul>
+        </div>
+      `)
       .join("");
 
-  } catch (err) {
+  } catch (error) {
+    console.error("Lookup error:", error);
     definition.textContent = "Definition not available.";
   }
 }
-
 
 function selectWord(button, word) {
   button.classList.toggle("selected");
@@ -82,6 +93,7 @@ function closePanel() {
   document.getElementById("panel").style.display = "none";
 }
 window.onload = loadPuzzle;
+
 
 
 
