@@ -32,7 +32,17 @@ h3 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
-  width: 360px; /* matches NYT proportions */
+  width: 100%;          /* <-- fill available space */
+  max-width: 360px;     /* <-- never exceed NYT width */
+  margin: 0 auto;
+}
+
+/* shrink tiles on small phones */
+@media (max-width: 400px) {
+  .word {
+    padding: 12px 6px;
+    font-size: 12px;
+  }
 }
 
 /* ------------------------------
@@ -165,6 +175,7 @@ h3 {
 .syn-block strong {
   font-weight: 600;
 }
+
 
 
 
