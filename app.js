@@ -9,6 +9,18 @@ function shuffle(array) {
   return array;
 }
 
+function adjustFontSize(el) {
+  const textLength = el.textContent.length;
+
+  if (textLength >= 14) {
+    el.style.fontSize = "11px";
+  } else if (textLength >= 11) {
+    el.style.fontSize = "12px";
+  } else {
+    el.style.fontSize = "14px";
+  }
+}
+
 /* ------------------------------
    LOAD PUZZLE.JSON AND BUILD GRID
 ------------------------------ */
@@ -44,11 +56,14 @@ function buildGrid(words) {
     btn.className = "word";
     btn.textContent = word;
 
+    adjustFontSize(btn);   // ✅ NEW
+
     btn.addEventListener("click", () => lookupWord(word));
 
     grid.appendChild(btn);
   });
 }
+
 
 /* ------------------------------
    LOOKUP WORD IN DICTIONARY API
@@ -136,6 +151,7 @@ function closePanel() {
    LOAD GRID ON PAGE LOAD
 ------------------------------ */
 window.onload = loadPuzzle;
+
 
 
 
