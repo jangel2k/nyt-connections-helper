@@ -1,3 +1,6 @@
+/* ------------------------------
+   SHUFFLE WORDS
+------------------------------ */
 function shuffle(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -6,39 +9,50 @@ function shuffle(array) {
   return array;
 }
 
+/* ------------------------------
+   LOAD PUZZLE.JSON AND BUILD GRID
+------------------------------ */
 async function loadPuzzle() {
   try {
     const res = await fetch("puzzle.json");
     const data = await res.json();
-   
+
     let words = [];
 
-   data.categories.forEach(cat => {
-   cat.cards.forEach(card => words.push(card.content));
+    data.categories.forEach(cat => {
+      cat.cards.forEach(card => words.push(card.content));
     });
 
     shuffle(words);
     buildGrid(words);
+
   } catch (error) {
-    console.error('Error loading puzzle:', error);
-    alert('Failed to load puzzle');
+    console.error("Error loading puzzle:", error);
+    alert("Failed to load puzzle");
   }
 }
 
+/* ------------------------------
+   BUILD GRID OF WORD BUTTONS
+------------------------------ */
 function buildGrid(words) {
   const grid = document.getElementById("grid");
   grid.innerHTML = "";
 
   words.forEach(word => {
-    const button = document.createElement("button");
-    button.textContent = word;
-    button.className = "word-button";
+    const btn = document.createElement("div");
+    btn.className = "word";
+    btn.textContent = word;
 
-    button.addEventListener("click", () => lookupWord(word));
+    btn.addEventListener("click", () => lookupWord(word));
 
-    grid.appendChild(button);
+    grid.appendChild(btn);
   });
 }
+
+/* ------------------------------
+   LOOKUP WORD IN DICTIONARY API
+------------------------------ */
 async function lookupWord(word) {
   const panel = document.getElementById("panel");
   const title = document.getElementById("wordTitle");
@@ -77,41 +91,24 @@ async function lookupWord(word) {
       meaning.definitions.forEach(def => {
         html += `<li>${def.definition}</li>`;
 
+        // 🔥 Add synonyms only when they exist
         if (Array.isArray(def.synonyms) && def.synonyms.length > 0) {
           html += `
             <div class="syn-block">
-              <strong>Synonyms:</strong> ${def.synonyms.slice(0, 8).join(", ")}
+              <strong>Synonyms:</strong> 
+              ${def.synonyms.slice(0, 8).join(", ")}
             </div>
           `;
         }
       });
 
-      html += `</ul></div>`;
+      html += `
+          </ul>
+        </div>
+      `;
     });
 
     definition.innerHTML = html;
-
-  } catch (err) {
-    console.error(err);
-    definition.textContent = "Definition not available.";
-  }
-}
-
-
-
-    // Build clean HTML with proper indentation
-    definition.innerHTML = data[0].meanings
-      .map(meaning => `
-        <div class="meaning-block">
-          <div class="part-of-speech">${meaning.partOfSpeech}</div>
-          <ul class="definition-list">
-            ${meaning.definitions
-              .map(def => `<li>${def.definition}</li>`)
-              .join("")}
-          </ul>
-        </div>
-      `)
-      .join("");
 
   } catch (error) {
     console.error("Lookup error:", error);
@@ -119,15 +116,17 @@ async function lookupWord(word) {
   }
 }
 
-function selectWord(button, word) {
-  button.classList.toggle("selected");
-}
-
+/* ------------------------------
+   CLOSE PANEL
+------------------------------ */
 function closePanel() {
   document.getElementById("panel").style.display = "none";
 }
-window.onload = loadPuzzle;
 
+/* ------------------------------
+   LOAD GRID ON PAGE LOAD
+------------------------------ */
+window.onload = loadPuzzle;
 
 
 
