@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description"
+content="Find definitions and hints for today's Connections puzzle. A fast tool to help solve the daily word puzzle.">
 <title>Connections Solver</title>
+ <title>Connections Solver & Word Definition Helper</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+ <h2 id="title"></h2>
 
-<h2>Connections Solver Helper</h2>
- <h3>Click any word to view its definition</h3> 
+<script>
+const today = new Date();
+
+const formatted = today.toLocaleDateString("en-US", {
+  month: "long",
+  day: "numeric"
+});
+
+document.getElementById("title").textContent =
+  "Connections Hint Definition Helper for " + formatted;
+</script>
+ <h3>Click any hint to view its definition</h3> 
 
 <div id="grid" class="grid"></div>
 
@@ -28,6 +41,7 @@
 
 </body>
 </html>
+
 
 
 
