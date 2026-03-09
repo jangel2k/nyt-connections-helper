@@ -1,57 +1,62 @@
-body{
-font-family:-apple-system,Arial;
-padding:20px;
-text-align:center;
+body {
+  font-family: -apple-system, Arial;
+  padding: 20px;
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:10px;
-margin-top:20px;
+/* Grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+  text-align: center; /* ✅ moved here */
 }
 
-.word{
-background:#f4f4f4;
-padding:20px;
-border-radius:10px;
-font-weight:bold;
-cursor:pointer;
+.word {
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.word:hover{
-background:#ddd;
+.word:hover {
+  background: #ddd;
 }
 
-.panel{
-  display:none;
-  position:fixed;
-  bottom:0;
-  left:0;
-  right:0;
-  background:white;
-  padding:20px;
-  border-top:2px solid #ccc;
+/* Bottom panel */
+.panel {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 20px;
+  border-top: 2px solid #ccc;
+  text-align: left; /* ✅ IMPORTANT */
 }
 
+/* Dictionary formatting */
 .meaning-block {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
 }
 
 .part-of-speech {
   font-weight: bold;
-  margin-left: 10px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   text-transform: capitalize;
 }
 
+/* ✅ REAL indentation happens here */
 .definition-list {
-  margin-left: 25px;
-  padding-left: 15px;
+  margin: 0;
+  padding-left: 24px;
+  list-style-type: disc;
 }
 
 .definition-list li {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   line-height: 1.4;
 }
 
