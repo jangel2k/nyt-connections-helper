@@ -9,22 +9,16 @@ function shuffle(array) {
   return array;
 }
 
-function shrinkTextNYT(el) {
-  let size = 16;   // NYT base size
-  const min = 11;  // NYT uses ~11px minimum
+function shrinkText(element) {
 
-  el.style.fontSize = size + "px";
+  let size = 16;
 
-  // Keep shrinking until text fits within TWO lines
-  while (
-    (el.scrollHeight > el.clientHeight) &&
-    size > min
-  ) {
-    size -= 1;
-    el.style.fontSize = size + "px";
+  while (element.scrollHeight > element.clientHeight && size > 10) {
+    size--;
+    element.style.fontSize = size + "px";
   }
-}
 
+}
 
 /* ------------------------------
    LOAD PUZZLE.JSON AND BUILD GRID
@@ -53,20 +47,24 @@ async function loadPuzzle() {
    BUILD GRID OF WORD BUTTONS
 ------------------------------ */
 function buildGrid(words) {
+
   const grid = document.getElementById("grid");
   grid.innerHTML = "";
 
   words.forEach(word => {
-    const tile = document.createElement("div");
-    tile.className = "word";
-    tile.textContent = word;
 
-    // Shrink text until it matches NYT format
-    shrinkTextNYT(tile);
+    const div = document.createElement("div");
+    div.className = "word";
+    div.textContent = word;
 
-    tile.addEventListener("click", () => lookupWord(word));
-    grid.appendChild(tile);
+    div.onclick = () => lookupWord(word);
+
+    grid.appendChild(div);
+
+    shrinkText(div);   // auto adjust font
+
   });
+
 }
 
 
@@ -157,6 +155,7 @@ function closePanel() {
    LOAD GRID ON PAGE LOAD
 ------------------------------ */
 window.onload = loadPuzzle;
+
 
 
 
