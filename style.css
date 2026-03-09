@@ -1,46 +1,76 @@
-/* Slide animation */
+/* Global */
+body {
+  font-family: -apple-system, Arial;
+  padding: 20px;
+}
+
+/* ✅ Connections clues centered again */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-top: 20px;
+  text-align: center;
+}
+
+.word {
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.word:hover {
+  background: #ddd;
+}
+
+/* ✅ Bottom sliding panel */
 .panel {
   display: none;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 60vh;                     /* panel height */
+
+  height: 65vh; /* IMPORTANT for scrolling */
+
   background: white;
   border-top: 2px solid #ccc;
-  box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.15);
 
   animation: slideUp 0.25s ease-out;
 
-  display: flex;                    /* <<< KEY */
-  flex-direction: column;           /* header on top, content below */
-  text-align: left;                 /* stop centering the text */
+  display: flex;          /* ✅ REQUIRED */
+  flex-direction: column;
 }
 
-/* Slide-up keyframes */
+/* Slide animation */
 @keyframes slideUp {
   from { transform: translateY(100%); }
   to   { transform: translateY(0); }
 }
 
-/* Header stays visible */
+/* ✅ Header stays visible */
 .panel-header {
   padding: 10px 20px;
   border-bottom: 1px solid #ddd;
   background: white;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;                 /* <<< KEY */
-  top: 0;
-  z-index: 2;
+
+  text-align: center; /* ✅ keep title centered */
 }
 
-/* Scrollable content */
+/* ✅ ONLY THIS SCROLLS */
 .panel-content {
   padding: 15px 20px;
-  overflow-y: auto;                 /* <<< SCROLLING */
-  flex: 1;                          /* fill remaining space */
+  overflow-y: auto; /* ✅ SCROLL */
+  flex: 1;          /* ✅ fills remaining space */
+
+  text-align: left; /* ✅ ONLY definitions left */
 }
 
 /* Dictionary formatting */
@@ -54,9 +84,10 @@
   text-transform: capitalize;
 }
 
+/* ✅ Proper indentation */
 .definition-list {
   margin: 0;
-  padding-left: 25px;               /* proper left indent */
+  padding-left: 24px;
   list-style-type: disc;
 }
 
@@ -64,6 +95,7 @@
   margin-bottom: 8px;
   line-height: 1.4;
 }
+
 
 
 
