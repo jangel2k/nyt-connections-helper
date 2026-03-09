@@ -1,17 +1,74 @@
+/* ---------------------------------------------------
+   GENERAL PAGE LAYOUT
+--------------------------------------------------- */
+body {
+  font-family: -apple-system, Arial;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center the title + grid */
+}
+
+h2, h3 {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+
+/* ---------------------------------------------------
+   NYT-STYLE GRID
+--------------------------------------------------- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  width: 360px;              /* <<< NYT tile width */
+  margin-top: 10px;
+}
+
+
+/* ---------------------------------------------------
+   NYT-STYLE TILES
+--------------------------------------------------- */
+.word {
+  background: #EEEDE3;       /* NYT beige tile */
+  padding: 18px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 15px;
+  text-align: center;        /* re-center words */
+  cursor: pointer;
+
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+  border: 1px solid #E3E2D8;
+
+  transition: background 0.12s ease, transform 0.12s ease;
+}
+
+.word:hover {
+  background: #DFDED2;
+  transform: scale(1.02);
+}
+
+
+/* ---------------------------------------------------
+   BOTTOM PANEL (your dictionary window)
+--------------------------------------------------- */
 .panel {
-  display: none;                 /* hidden until JS shows it */
+  display: none;                 
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
 
-  height: 65vh;
+  height: 60vh;
   background: white;
   border-top: 2px solid #ccc;
   box-shadow: 0 -4px 10px rgba(0,0,0,0.15);
 
   animation: slideUp 0.25s ease-out;
-  flex-direction: column;        /* remove display: flex */
+
+  flex-direction: column;        
 }
 
 @keyframes slideUp {
@@ -19,20 +76,58 @@
   to   { transform: translateY(0); }
 }
 
+
+/* ---------------------------------------------------
+   PANEL HEADER (sticky)
+--------------------------------------------------- */
 .panel-header {
-  padding: 10px 20px;
+  padding: 12px 20px;
   border-bottom: 1px solid #ddd;
   background: white;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+.panel-header h2 {
+  font-size: 18px;
+}
+
+
+/* ---------------------------------------------------
+   SCROLLABLE CONTENT
+--------------------------------------------------- */
 .panel-content {
   padding: 15px 20px;
   overflow-y: auto;
   flex: 1;
   text-align: left;
+}
+
+
+/* ---------------------------------------------------
+   DICTIONARY FORMATTING
+--------------------------------------------------- */
+.meaning-block {
+  margin-bottom: 14px;
+}
+
+.part-of-speech {
+  font-weight: bold;
+  margin-bottom: 6px;
+  text-transform: capitalize;
+}
+
+.definition-list {
+  margin: 0;
+  padding-left: 24px;
+  list-style-type: disc;
+}
+
+.definition-list li {
+  margin-bottom: 8px;
+  line-height: 1.4;
 }
 
 
