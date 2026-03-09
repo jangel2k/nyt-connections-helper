@@ -9,17 +9,24 @@ function shuffle(array) {
   return array;
 }
 
-function adjustFontSize(el) {
-  const textLength = el.textContent.length;
+function fitTextToBox(el) {
+  const maxFont = 14;
+  const minFont = 10;
 
-  if (textLength >= 14) {
-    el.style.fontSize = "11px";
-  } else if (textLength >= 11) {
-    el.style.fontSize = "12px";
-  } else {
-    el.style.fontSize = "14px";
+  let fontSize = maxFont;
+  el.style.fontSize = fontSize + "px";
+
+  // Reduce font size until text fits
+  while (
+    (el.scrollHeight > el.clientHeight ||
+     el.scrollWidth > el.clientWidth) &&
+    fontSize > minFont
+  ) {
+    fontSize -= 0.5;
+    el.style.fontSize = fontSize + "px";
   }
 }
+
 
 /* ------------------------------
    LOAD PUZZLE.JSON AND BUILD GRID
@@ -151,6 +158,7 @@ function closePanel() {
    LOAD GRID ON PAGE LOAD
 ------------------------------ */
 window.onload = loadPuzzle;
+
 
 
 
