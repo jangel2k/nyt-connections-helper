@@ -1,6 +1,9 @@
 /* ------------------------------
    PAGE / TYPOGRAPHY
 ------------------------------ */
+* {
+  box-sizing: border-box;
+}
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
                Roboto, Helvetica, Arial, sans-serif;
@@ -30,12 +33,14 @@ h3 {
 ------------------------------ */
 .grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  width: 100%;          /* <-- fill available space */
-  max-width: 360px;     /* <-- never exceed NYT width */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+
+  width: 100%;
+  max-width: 360px;   /* NYT mobile width */
   margin: 0 auto;
 }
+
 
 /* shrink tiles on small phones */
 @media (max-width: 400px) {
@@ -175,6 +180,7 @@ h3 {
 .syn-block strong {
   font-weight: 600;
 }
+
 
 
 
