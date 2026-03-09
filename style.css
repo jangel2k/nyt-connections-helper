@@ -37,6 +37,26 @@ body {
   text-align: left; /* ✅ IMPORTANT */
 }
 
+
+
+/* Header stays fixed */
+.panel-header {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ✅ Scrollable content */
+.panel-content {
+  padding: 15px 20px;
+  overflow-y: auto;          /* ✅ scrolling */
+  flex: 1;                   /* ✅ fill remaining space */
+  text-align: left;
+}
+
 /* Dictionary formatting */
 .meaning-block {
   margin-bottom: 14px;
@@ -59,4 +79,5 @@ body {
   margin-bottom: 8px;
   line-height: 1.4;
 }
+
 
