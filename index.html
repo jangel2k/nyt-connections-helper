@@ -9,19 +9,24 @@
 <body>
 
 <h2>Connections Solver Helper</h2>
+ <h3Click any word to view its definition</h3> 
 
 <div id="grid" class="grid"></div>
 
-<div id="panel" class="panel">
-  <h3 id="wordTitle"></h3>
-  <p id="definition"></p>
-  <p id="synonyms"></p>
-  <button onclick="closePanel()">Close</button>
-</div>  
+
+  <div id="panel" class="panel">
+  <div class="panel-header">
+    <h2 id="wordTitle"></h2>
+    <button onclick="closePanel()">Close</button>
+  </div>
+
+  <div id="definition" class="panel-content"></div>
+</div>
 
 <script src="app.js"></script>
 
 </body>
 </html>
+
 
 
