@@ -9,12 +9,17 @@ function shuffle(array) {
   return array;
 }
 
-function shrinkToFit(el) {
-  let size = 16;        // starting font size
-  const min = 10;       // smallest allowed
+function shrinkTextNYT(el) {
+  let size = 16;   // NYT base size
+  const min = 11;  // NYT uses ~11px minimum
+
   el.style.fontSize = size + "px";
 
-  while (size > min && el.scrollWidth > el.clientWidth) {
+  // Keep shrinking until text fits within TWO lines
+  while (
+    (el.scrollHeight > el.clientHeight) &&
+    size > min
+  ) {
     size -= 1;
     el.style.fontSize = size + "px";
   }
@@ -56,8 +61,8 @@ function buildGrid(words) {
     tile.className = "word";
     tile.textContent = word;
 
-    // ⭐ SHRINK TO FIT
-    shrinkToFit(tile);
+    // Shrink text until it matches NYT format
+    shrinkTextNYT(tile);
 
     tile.addEventListener("click", () => lookupWord(word));
     grid.appendChild(tile);
@@ -152,6 +157,7 @@ function closePanel() {
    LOAD GRID ON PAGE LOAD
 ------------------------------ */
 window.onload = loadPuzzle;
+
 
 
 
