@@ -44,9 +44,9 @@ async function lookupWord(word) {
   const title = document.getElementById("wordTitle");
   const definition = document.getElementById("definition");
 
-  // Show panel and reset content
   panel.style.display = "flex";
-  definition.scrollTop = 0;   // <<< THIS ensures scrolling starts at top
+  definition.scrollTop = 0;
+
   title.textContent = word;
   definition.textContent = "Loading...";
 
@@ -55,16 +55,51 @@ async function lookupWord(word) {
       `https://api.dictionaryapi.dev/api/v2/entries/en/${word.toLowerCase()}`
     );
 
-    if (!res.ok) {
-      throw new Error("Word not found");
-    }
+    if (!res.ok) throw new Error("Not found");
 
     const data = await res.json();
+    const entry = data[0];
 
-    if (!data[0]?.meanings?.length) {
+    if (!entry?.meanings?.length) {
       definition.textContent = "Definition not found.";
       return;
     }
+
+    // Build meanings + definitions + synonyms
+    const html = entry.meanings
+      .map(meaning => {
+        const part = meaning.partOfSpeech || "";
+
+        const defs = meaning.definitions
+          .map(def => {
+            const defText = `<li>${def.definition}</li>`;
+
+            const syns = def.synonyms && def.synonyms.length
+              ? `<div class="syn-block"><strong>Synonyms:</strong> ${def.synonyms.slice(0,8).join(", ")}</div>`
+              : "";
+
+            return defText + syns;
+          })
+          .join("");
+
+        return `
+          <div class="meaning-block">
+            <div class="part-of-speech">${part}</div>
+            <ul class="definition-list">
+              ${defs}
+            </ul>
+          </div>
+        `;
+      })
+      .join("");
+
+    definition.innerHTML = html;
+
+  } catch (err) {
+    definition.textContent = "Definition not available.";
+  }
+}
+
 
     // Build clean HTML with proper indentation
     definition.innerHTML = data[0].meanings
@@ -94,6 +129,7 @@ function closePanel() {
   document.getElementById("panel").style.display = "none";
 }
 window.onload = loadPuzzle;
+
 
 
 
