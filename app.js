@@ -13,7 +13,7 @@ function shrinkText(element) {
 
   let size = 16;
 
-  while (element.scrollHeight > element.clientHeight && size > 10) {
+  while (element.scrollWidth > element.clientWidth && size > 9) {
     size--;
     element.style.fontSize = size + "px";
   }
@@ -155,6 +155,7 @@ function closePanel() {
    LOAD GRID ON PAGE LOAD
 ------------------------------ */
 window.onload = loadPuzzle;
+
 
 
 
