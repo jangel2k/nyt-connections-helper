@@ -1,60 +1,46 @@
-body {
-  font-family: -apple-system, Arial;
-  padding: 20px;
-}
-
-/* Grid layout */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-top: 20px;
-  text-align: center; /* ✅ moved here */
-}
-
-.word {
-  background: #f4f4f4;
-  padding: 20px;
-  border-radius: 10px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.word:hover {
-  background: #ddd;
-}
-
-/* Bottom panel */
+/* Slide animation */
 .panel {
   display: none;
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
+  height: 60vh;                     /* panel height */
   background: white;
-  padding: 20px;
   border-top: 2px solid #ccc;
-  text-align: left; /* ✅ IMPORTANT */
+  box-shadow: 0 -4px 10px rgba(0,0,0,0.1);
+
+  animation: slideUp 0.25s ease-out;
+
+  display: flex;                    /* <<< KEY */
+  flex-direction: column;           /* header on top, content below */
+  text-align: left;                 /* stop centering the text */
 }
 
+/* Slide-up keyframes */
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
 
-
-/* Header stays fixed */
+/* Header stays visible */
 .panel-header {
   padding: 10px 20px;
   border-bottom: 1px solid #ddd;
-  background: #fff;
+  background: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  position: sticky;                 /* <<< KEY */
+  top: 0;
+  z-index: 2;
 }
 
-/* ✅ Scrollable content */
+/* Scrollable content */
 .panel-content {
   padding: 15px 20px;
-  overflow-y: auto;          /* ✅ scrolling */
-  flex: 1;                   /* ✅ fill remaining space */
-  text-align: left;
+  overflow-y: auto;                 /* <<< SCROLLING */
+  flex: 1;                          /* fill remaining space */
 }
 
 /* Dictionary formatting */
@@ -68,10 +54,9 @@ body {
   text-transform: capitalize;
 }
 
-/* ✅ REAL indentation happens here */
 .definition-list {
   margin: 0;
-  padding-left: 24px;
+  padding-left: 25px;               /* proper left indent */
   list-style-type: disc;
 }
 
@@ -79,5 +64,6 @@ body {
   margin-bottom: 8px;
   line-height: 1.4;
 }
+
 
 
