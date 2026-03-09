@@ -56,7 +56,7 @@ h3 {
 .word {
   background: #EEEDE3;
   border-radius: 8px;
-  padding: 14px 6px;
+  padding: 10px 6px;
 
   display: flex;
   align-items: center;
@@ -64,9 +64,9 @@ h3 {
 
   text-align: center;
   font-weight: 700;
-  font-size: 14px;              /* base size */
-  line-height: 1.15;
-  letter-spacing: 0.4px;
+  font-size: 14px;       /* starting size */
+  line-height: 1.1;
+  letter-spacing: 0.3px;
   text-transform: uppercase;
 
   cursor: pointer;
@@ -75,9 +75,7 @@ h3 {
   border: 1px solid #E1E0D6;
   box-shadow: 0 1px 2px rgba(0,0,0,0.06);
 
-  /* ✅ critical */
-  word-break: break-word;
-  overflow: hidden;
+  overflow: hidden;     /* REQUIRED */
 }
 
 
@@ -185,6 +183,7 @@ h3 {
 .syn-block strong {
   font-weight: 600;
 }
+
 
 
 
