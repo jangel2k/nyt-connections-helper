@@ -55,7 +55,7 @@ h3 {
 .word {
   background: #EEEDE3;
   border-radius: 8px;
-  padding: 10px 6px;
+  padding: 14px 8px;
 
   display: flex;
   align-items: center;
@@ -63,7 +63,7 @@ h3 {
 
   text-align: center;
   font-weight: 700;
-  font-size: 16px;   /* start larger so there’s room to shrink */
+  font-size: 16px;      /* Base size (NYT-like) */
   line-height: 1.1;
   letter-spacing: 0.4px;
   text-transform: uppercase;
@@ -76,8 +76,8 @@ h3 {
 
   overflow: hidden;
 
-  white-space: nowrap;          /* ⭐ NO WRAPPING */
-  text-overflow: ellipsis;      /* failsafe — should never be needed */
+  /* Allow wrapping (NYT does this) */
+  white-space: normal;
 }
 
 
@@ -186,6 +186,7 @@ h3 {
 .syn-block strong {
   font-weight: 600;
 }
+
 
 
 
