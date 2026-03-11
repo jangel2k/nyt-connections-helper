@@ -139,7 +139,13 @@ async function lookupWord(word) {
 
   } catch (error) {
     console.error("Lookup error:", error);
-    definition.innerHTML = "Definition not found.<br><em>Hint: This may be a proper name (person or place).</em>";
+         definition.innerHTML = `
+              Definition not found.<br>
+              <em>Hint: This may be a proper name (person or place).</em><br><br>
+                    https://www.merriam-webster.com/dictionary/${word.toLowerCase()}
+                      You can try this link
+                       </a>
+                        `;
   }
 }
 
@@ -155,6 +161,7 @@ function closePanel() {
    LOAD GRID ON PAGE LOAD
 ------------------------------ */
 window.onload = loadPuzzle;
+
 
 
 
