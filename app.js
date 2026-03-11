@@ -140,13 +140,17 @@ async function lookupWord(word) {
   } catch (error) {
     console.error("Lookup error:", error);
 
-definition.innerHTML = `
-  Definition not found.<br>
-  <em>Hint: This may be a proper name (person or place).</em><br><br>
-  https://www.merriam-webster.com/dictionary/${word.toLowerCase()}
-    You can try this link
-  </a>
-`;
+definition.innerHTML =
+  `Definition not found.<br>
+   <em>Hint: This may be a proper name (person or place).</em><br><br>`;
+
+const link = document.createElement("a");
+link.href = `https://www.merriam-webster.com/dictionary/${word.toLowerCase()}`;
+link.target = "_blank";
+link.rel = "noopener noreferrer";
+link.textContent = "You can try this link";
+
+definition.appendChild(link);
                         `;
   }
 }
@@ -163,6 +167,7 @@ function closePanel() {
    LOAD GRID ON PAGE LOAD
 ------------------------------ */
 window.onload = loadPuzzle;
+
 
 
 
