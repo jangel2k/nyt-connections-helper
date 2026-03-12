@@ -143,6 +143,7 @@ async function lookupWord(word) {
   }
 }
 
+
 /* ------------------------------
    CLOSE PANEL
 ------------------------------ */
@@ -154,6 +155,8 @@ function closePanel() {
    LOAD GRID ON PAGE LOAD
 ------------------------------ */
 window.onload = loadPuzzle;
+
+
 
 
 
