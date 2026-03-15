@@ -91,26 +91,33 @@ async function lookupWord(word) {
     if (!res.ok) throw new Error("Not found");
 
     const data = await res.json();
-    const entry = data[0];
 
-    if (!entry?.meanings?.length) {
-      definition.innerHTML = "Definition not found.<br><em>Hint: This may be a proper name (person or place).</em>";
-      return;
-    }
+if (!Array.isArray(data) || data.length === 0) {
+  definition.innerHTML =
+    "Definition not found.<br><em>Hint: This may be a proper name (person or place).</em>";
+  return;
+}
 
-    let html = "";
+let html = "";
 
-    entry.meanings.forEach(meaning => {
-      html += `
-        <div class="meaning-block">
-          <div class="part-of-speech">${meaning.partOfSpeech || ""}</div>
-          <ul class="definition-list">
-      `;
+data.forEach(entry => {
 
-      meaning.definitions.forEach(def => {
+  if (!entry?.meanings) return;
+
+  entry.meanings.forEach(meaning => {
+
+    html += `
+      <div class="meaning-block">
+        <div class="part-of-speech">${meaning.partOfSpeech || ""}</div>
+        <ul class="definition-list">
+    `;
+
+    meaning.definitions
+      .sort((a, b) => a.definition.length - b.definition.length)
+      .forEach(def => {
+
         html += `<li>${def.definition}</li>`;
 
-        // 1. Synonyms inside definition
         if (Array.isArray(def.synonyms) && def.synonyms.length > 0) {
           html += `
             <div class="syn-block">
@@ -118,23 +125,27 @@ async function lookupWord(word) {
             </div>
           `;
         }
+
       });
 
-      // 2. Synonyms at meaning level
-      if (Array.isArray(meaning.synonyms) && meaning.synonyms.length > 0) {
-        html += `
-          <div class="syn-block">
-            <strong>Synonyms:</strong> ${meaning.synonyms.slice(0, 8).join(", ")}
-          </div>
-        `;
-      }
-
+    if (Array.isArray(meaning.synonyms) && meaning.synonyms.length > 0) {
       html += `
-          </ul>
+        <div class="syn-block">
+          <strong>Synonyms:</strong> ${meaning.synonyms.slice(0, 8).join(", ")}
         </div>
       `;
-    });
+    }
 
+    html += `
+        </ul>
+      </div>
+    `;
+
+  });
+
+});
+
+definition.innerHTML = html;
     definition.innerHTML = html;
 
   } catch (error) {
