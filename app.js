@@ -113,7 +113,7 @@ data.forEach(entry => {
     `;
 
     meaning.definitions
-      .sort((a, b) => a.definition.length - b.definition.length)
+     // .sort((a, b) => a.definition.length - b.definition.length)
       .forEach(def => {
 
         html += `<li>${def.definition}</li>`;
